@@ -1,4 +1,7 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using NUnit.Framework;
+using RestSharp;
+using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,27 +10,26 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StajProje
+   namespace StajProje
 {
-    class Program
+    public class Program
     {
-       public static void Main(string[] args)
-        {
-            //string url = @"https://temmuzhvlstaj.atlassian.net/1";
-            //DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(IEnumerable<RootObject>));
-            //WebClient syncClient = new WebClient();
-            //string content = syncClient.DownloadString(url);
+        public static void Main(string[] args)
+            {
+            var client = new RestClient();
+            client.BaseUrl = new Uri("https://temmuzhvlstaj.atlassian.net");
+            client.Authenticator = new HttpBasicAuthenticator("idemirci", "123456789");
 
-            //using (MemoryStream memo = new MemoryStream(Encoding.Unicode.GetBytes(content)))
-            //{
-            //    IEnumerable<RootObject> countries = (IEnumerable<RootObject>)serializer.ReadObject(memo);
-            //}
+            var request = new RestRequest(Method.GET);
+            request.Resource = "rest/api/3/issue/TSI-2";
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("Content-Type", "application/json; charset=utf-8");
 
-            var client = new RestClient("https://temmuzhvlstaj.atlassian.net/rest/api/3/");
-            var request = new RestRequest("issue/TSI-2", Method.GET);
-            var queryResult = client.Execute<List<JiraItem>>(request).Data;
+            request.RequestFormat = DataFormat.Json;
 
-            Console.Read();
+            IRestResponse response = client.Execute(request);
         }
-    }
-}
+
+        }
+
+    }   
