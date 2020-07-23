@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Atlassian;
 
    namespace StajProje
 {
@@ -16,20 +17,20 @@ using System.Threading.Tasks;
     {
         public static void Main(string[] args)
             {
-            var client = new RestClient();
-            client.BaseUrl = new Uri("https://temmuzhvlstaj.atlassian.net");
-            client.Authenticator = new HttpBasicAuthenticator("idemirci", "2sMXD5XlHRS2J0Q6tfLK46E8");
+                var client = new RestClient();
+                client.BaseUrl = new Uri("https://temmuzhvlstaj.atlassian.net");
+                client.Authenticator = new HttpBasicAuthenticator("idemirci", "2sMXD5XlHRS2J0Q6tfLK46E8");
 
-            var request = new RestRequest(Method.GET);
-            request.Resource = "rest/api/3/issue/TSI-2";
-            request.AddHeader("Accept", "application/json");
-            request.AddHeader("Content-Type", "application/json; charset=utf-8");
+                var request = new RestRequest(Method.GET);
+                request.Resource = "rest/api/3/issue/TSI-2";
+                request.AddHeader("Accept", "application/json");
+                request.AddHeader("Content-Type", "application/json; charset=utf-8");
 
-            request.RequestFormat = DataFormat.Json;
-
-            IRestResponse response = client.Execute(request); 
+                request.RequestFormat = DataFormat.Json;
+                var queryResult = client.Execute<List<JiraItem>>(request).Data;
+                //IRestResponse response = client.Execute(request);
         }
 
-        }
+    }
 
     }   
