@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using RestSharp;
 using RestSharp.Authenticators;
+using RestSharp.Deserializers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +17,7 @@ using Atlassian;
     public class Program
     {
         public static void Main(string[] args)
-            {
+        {
                 var client = new RestClient();
                 client.BaseUrl = new Uri("https://temmuzhvlstaj.atlassian.net");
                 client.Authenticator = new HttpBasicAuthenticator("ilaydademircii_@hotmail.com", "2sMXD5XlHRS2J0Q6tfLK46E8");
@@ -27,8 +28,13 @@ using Atlassian;
                 request.AddHeader("Content-Type", "application/json; charset=utf-8");
 
                 request.RequestFormat = DataFormat.Json;
+  
+                IRestResponse response = client.Execute(request);
                 var queryResult = client.Execute<List<JiraItem>>(request).Data;
-                //IRestResponse response = client.Execute(request);
+          
+
+
+
         }
 
     }
