@@ -19,7 +19,7 @@ using Atlassian;
             {
                 var client = new RestClient();
                 client.BaseUrl = new Uri("https://temmuzhvlstaj.atlassian.net");
-                client.Authenticator = new HttpBasicAuthenticator("idemirci", "2sMXD5XlHRS2J0Q6tfLK46E8");
+                client.Authenticator = new HttpBasicAuthenticator("ilaydademircii_@hotmail.com", "2sMXD5XlHRS2J0Q6tfLK46E8");
 
                 var request = new RestRequest(Method.GET);
                 request.Resource = "rest/api/3/issue/TSI-2";
