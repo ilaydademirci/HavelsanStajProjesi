@@ -18,7 +18,7 @@ using System.Threading.Tasks;
             {
             var client = new RestClient();
             client.BaseUrl = new Uri("https://temmuzhvlstaj.atlassian.net");
-            client.Authenticator = new HttpBasicAuthenticator("idemirci", "123456789");
+            client.Authenticator = new HttpBasicAuthenticator("idemirci", "2sMXD5XlHRS2J0Q6tfLK46E8");
 
             var request = new RestRequest(Method.GET);
             request.Resource = "rest/api/3/issue/TSI-2";
@@ -27,7 +27,7 @@ using System.Threading.Tasks;
 
             request.RequestFormat = DataFormat.Json;
 
-            IRestResponse response = client.Execute(request);
+            IRestResponse response = client.Execute(request); 
         }
 
         }
