@@ -30,10 +30,9 @@ using Atlassian;
                 request.RequestFormat = DataFormat.Json;
   
                 IRestResponse response = client.Execute(request);
+      
                 var queryResult = client.Execute<List<JiraItem>>(request).Data;
-          
-
-
+                var JiraItem = JsonConvert.DeserializeObject<JiraItem>(response.Content);
 
         }
 
