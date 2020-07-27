@@ -8,32 +8,32 @@ namespace StajProje
 {   
     public class To
     {
-        public string self { get; set; }
-        public string description { get; set; }
-        public string iconUrl { get; set; }
-        public string name { get; set; }
-        public string id { get; set; }
-        public StatusCategory statusCategory { get; set; }
+        public string Self { get; set; }
+        public string Description { get; set; }
+        public string IconUrl { get; set; }
+        public string Name { get; set; }
+        public string Id { get; set; }
+        public StatusCategory StatusCategory { get; set; }
 
     }
 
     public class Transition
     {
-        public string id { get; set; }
-        public string name { get; set; }
-        public To to { get; set; }
-        public bool hasScreen { get; set; }
-        public bool isGlobal { get; set; }
-        public bool isInitial { get; set; }
-        public bool isAvailable { get; set; }
-        public bool isConditional { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public To To { get; set; }
+        public bool HasScreen { get; set; }
+        public bool IsGlobal { get; set; }
+        public bool IsInitial { get; set; }
+        public bool IsAvailable { get; set; }
+        public bool IsConditional { get; set; }
 
     }
 
     public class JiraTransition
     {
-        public string expand { get; set; }
-        public List<Transition> transitions { get; set; }
+        public string Expand { get; set; }
+        public List<Transition> Transitions { get; set; }
 
     }
 
