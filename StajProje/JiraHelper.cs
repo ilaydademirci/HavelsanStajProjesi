@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
+using StajProje.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,54 +15,35 @@ namespace StajProje
     /// </summary>
     public class JiraHelper
     {
+        public RestHelper restHelper = new RestHelper();
+
         /// <summary>
         /// 
         /// </summary>
         public void CheckJira()
         {
-            var client = new RestClient
-            {
-                BaseUrl = new Uri("https://temmuzhvlstaj.atlassian.net"),
-                Authenticator = new HttpBasicAuthenticator("ilaydademircii_@hotmail.com", "2sMXD5XlHRS2J0Q6tfLK46E8")
-            };
+            var client = restHelper.GenerateClient();
+            var request = restHelper.PrepareRequest("/rest/api/3/issue/TSI-2?expand=changelog");
 
-            var request = new RestRequest(Method.GET)
-            {
-                Resource = "/rest/api/3/issue/TSI-2?expand=changelog"
-            };
-            request.AddHeader("Accept", "application/json");
-            request.AddHeader("Content-Type", "application/json; charset=utf-8");
-
-            request.RequestFormat = DataFormat.Json;
-
-            IRestResponse response = client.Execute(request);
-            
+            IRestResponse response = client.Execute(request); 
             var jiraItem = JsonConvert.DeserializeObject<JiraItem>(response.Content);
-            
+
 
             //TSI-2 methodu transitionlarını alıyorum
             var transitions = GetTransitions("TSI-2");
         }
 
+        private void getIssue(string issueNum)
+        {
+
+        }
+
         public JiraTransition GetTransitions(string bugID)
         {
-            var client = new RestClient
-            {
-                BaseUrl = new Uri("https://temmuzhvlstaj.atlassian.net"),
-                Authenticator = new HttpBasicAuthenticator("ilaydademircii_@hotmail.com", "2sMXD5XlHRS2J0Q6tfLK46E8")
-            };
+            var client = restHelper.GenerateClient();
+            var request = restHelper.PrepareRequest("/rest/api/3/issue/TSI-2" + bugID + "/transitions");
 
-            var request = new RestRequest(Method.GET)
-            {
-                Resource = "/rest/api/3/issue/TSI-2" + bugID + "/transitions"
-            };
-            request.AddHeader("Accept", "application/json");
-            request.AddHeader("Content-Type", "application/json; charset=utf-8");
-
-            request.RequestFormat = DataFormat.Json;
-
-            IRestResponse response = client.Execute(request);
-             
+            IRestResponse response = client.Execute(request); 
             return JsonConvert.DeserializeObject<JiraTransition>(response.Content);
         }
 
@@ -84,7 +66,7 @@ namespace StajProje
             request2.RequestFormat = DataFormat.Json;
 
             IRestResponse response2 = client2.Execute(request2);
-            
+
             var root = JsonConvert.DeserializeObject<Root>(response2.Content);
 
 

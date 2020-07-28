@@ -20,12 +20,6 @@ namespace StajProje
         {
             JiraHelper helper = new JiraHelper();
             helper.CheckJira(); 
-        }
-        public static void Main2(string[] args)
-        {
-            JiraHelper helper = new JiraHelper();
-            helper.ControlJira();
-        }
-
+        }  
     } 
 }
