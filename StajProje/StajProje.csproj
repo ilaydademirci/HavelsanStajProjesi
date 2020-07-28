@@ -94,7 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\RestHelper.cs" />
-    <Compile Include="JiraHelper.cs" />
+    <Compile Include="Helpers\JiraHelper.cs" />
     <Compile Include="Base\JiraItem.cs" />
     <Compile Include="Base\JiraTransitions.cs" />
     <Compile Include="Program.cs" />
