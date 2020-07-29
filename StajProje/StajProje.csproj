@@ -93,6 +93,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="Helpers\RestHelper.cs" />
     <Compile Include="Helpers\JiraHelper.cs" />
     <Compile Include="Base\JiraItem.cs" />

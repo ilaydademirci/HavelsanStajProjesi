@@ -17,62 +17,55 @@ namespace StajProje
     public class JiraHelper
     {
         public RestHelper restHelper = new RestHelper();
+        public ExcelHelper excelHelper = new ExcelHelper();
+        public Dictionary<string, int> reboundDictionary = new Dictionary<string, int>();
+
 
         /// <summary>
         /// 
         /// </summary>
+        /// 
         public void CheckJira()
         {
-            var client = restHelper.GenerateClient();
-            var request = restHelper.PrepareRequest("/rest/api/3/issue/TSI-2?expand=changelog");
+            var buglist = getAllBugs();
 
-            IRestResponse response = client.Execute(request); 
-            var jiraItem = JsonConvert.DeserializeObject<JiraItem>(response.Content);
+            foreach (JiraItem bug in buglist)
+            {
+                var bugTransition = getTransitions(bug.Key); //TSI-2
+                int reboundCount = calculateRebound(bugTransition);
+                reboundDictionary.Add(bug.Key, reboundCount);
+            }
 
-
-            //TSI-2 methodu transitionlarını alıyorum
-            var transitions = GetTransitions("TSI-2");
+            excelHelper.PrintToExcelFile(reboundDictionary);
         }
 
-        private void getIssue(string issueNum)
+        private List<JiraItem> getAllBugs()
         {
-
+            //Tüm bugların toplanması
+            return null;
         }
 
-        public JiraTransition GetTransitions(string bugID)
+         
+
+        /// <summary>
+        /// Kaç kere Done durumundan In Progress'e çekilmiş
+        /// </summary>
+        /// <param name="transition"></param>
+        /// <returns></returns>
+        private int calculateRebound(JiraTransition transition)
+        {
+            return 0;
+        }
+
+        private JiraTransition getTransitions(string bugID)
         {
             var client = restHelper.GenerateClient();
-            var request = restHelper.PrepareRequest("/rest/api/3/issue/TSI-2" + bugID + "/transitions");
+            var request = restHelper.PrepareRequest("/rest/api/3/issue/" + bugID + "/transitions");
 
-            IRestResponse response = client.Execute(request); 
+            IRestResponse response = client.Execute(request);
             return JsonConvert.DeserializeObject<JiraTransition>(response.Content);
         }
 
-        public async Task  Loadid(int id=0)
-        {
-            string url= "",
 
-                if(id>0)
-            {
-                url =
-            }
-            else
-            {
-                url =
-            }
-            using (HttpResponseMessage response = await RestHelper.GenerateClient.GetAsync(url))
-            {
-                if (response.IsSuccessStatusCode)
-                {
-                    Departmentdepartment = awaitresponse.Content.ReadAsAsync<Department>();
-                    Console.WriteLine("Id:{0}\tName:{1}", department.DepartmentId, department.DepartmentName);
-                    Console.WriteLine("No of Employee in Department: {0}", department.Employees.Count);
-                }
-                else
-                {
-                    Console.WriteLine("Internal server Error");
-                }
-            }
-        }
     }
 }
