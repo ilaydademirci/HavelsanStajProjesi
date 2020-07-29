@@ -5,6 +5,7 @@ using StajProje.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,53 +48,31 @@ namespace StajProje
             return JsonConvert.DeserializeObject<JiraTransition>(response.Content);
         }
 
-        //TSI-3
-        public void ControlJira()
+        public async Task  Loadid(int id=0)
         {
-            var client2 = new RestClient
+            string url= "",
+
+                if(id>0)
             {
-                BaseUrl = new Uri("https://temmuzhvlstaj.atlassian.net"),
-                Authenticator = new HttpBasicAuthenticator("ilaydademircii_@hotmail.com", "2sMXD5XlHRS2J0Q6tfLK46E8")
-            };
-
-            var request2 = new RestRequest(Method.GET)
+                url =
+            }
+            else
             {
-                Resource = "/rest/api/3/issue/TSI-3?expand=changelog"
-            };
-            request2.AddHeader("Accept", "application/json");
-            request2.AddHeader("Content-Type", "application/json; charset=utf-8");
-
-            request2.RequestFormat = DataFormat.Json;
-
-            IRestResponse response2 = client2.Execute(request2);
-
-            var root = JsonConvert.DeserializeObject<Root>(response2.Content);
-
-
-            //TSI-3 methodu transitionlarını alıyorum
-            var transitions2 = GetTransitions2("TSI-3");
-
-        }
-        public JiraTransition2 GetTransitions2(string bugID)
-        {
-            var client2 = new RestClient
+                url =
+            }
+            using (HttpResponseMessage response = await RestHelper.GenerateClient.GetAsync(url))
             {
-                BaseUrl = new Uri("https://temmuzhvlstaj.atlassian.net"),
-                Authenticator = new HttpBasicAuthenticator("ilaydademircii_@hotmail.com", "2sMXD5XlHRS2J0Q6tfLK46E8")
-            };
-
-            var request2 = new RestRequest(Method.GET)
-            {
-                Resource = "/rest/api/3/issue/TSI-3" + bugID + "/transitions"
-            };
-            request2.AddHeader("Accept", "application/json");
-            request2.AddHeader("Content-Type", "application/json; charset=utf-8");
-
-            request2.RequestFormat = DataFormat.Json;
-
-            IRestResponse response2 = client2.Execute(request2);
-
-            return JsonConvert.DeserializeObject<JiraTransition2>(response2.Content);
+                if (response.IsSuccessStatusCode)
+                {
+                    Departmentdepartment = awaitresponse.Content.ReadAsAsync<Department>();
+                    Console.WriteLine("Id:{0}\tName:{1}", department.DepartmentId, department.DepartmentName);
+                    Console.WriteLine("No of Employee in Department: {0}", department.Employees.Count);
+                }
+                else
+                {
+                    Console.WriteLine("Internal server Error");
+                }
+            }
         }
     }
 }
