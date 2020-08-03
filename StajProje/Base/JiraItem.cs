@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace StajProje
 {
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
 
 
+    //TSI-2
     public class Author
     {
         public string Self { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
+using RestSharp.Deserializers;
 using StajProje.Helpers;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Atlassian;
 
 namespace StajProje
 {
@@ -19,30 +21,38 @@ namespace StajProje
         public RestHelper restHelper = new RestHelper();
         public ExcelHelper excelHelper = new ExcelHelper();
         public Dictionary<string, int> reboundDictionary = new Dictionary<string, int>();
-
-
+         
         /// <summary>
         /// 
         /// </summary>
         /// 
         public void CheckJira()
         {
-            var buglist = getAllBugs();
+            var buglist = GetAllBugs();
+
 
             foreach (JiraItem bug in buglist)
             {
-                var bugTransition = getTransitions(bug.Key); //TSI-2
-                int reboundCount = calculateRebound(bugTransition);
-                reboundDictionary.Add(bug.Key, reboundCount);
-            }
+                if (!(bug is JiraItem))
+                    continue;
 
+                var bugTransition = GetTransitions(bug.Key); //TSI-2
+                int reboundCount = CalculateRebound(bugTransition);
+                reboundDictionary.Add(bug.Key, reboundCount);
+                Console.WriteLine("Bug: {0}", bug);
+
+            }
+            Console.WriteLine("Total Found: " + buglist.Count);
             excelHelper.PrintToExcelFile(reboundDictionary);
         }
 
-        private List<JiraItem> getAllBugs()
+        private List<JiraItem> GetAllBugs()
         {
+
+            Console.WriteLine(reboundDictionary);
             //Tüm bugların toplanması
             return null;
+     
         }
 
          
@@ -52,12 +62,12 @@ namespace StajProje
         /// </summary>
         /// <param name="transition"></param>
         /// <returns></returns>
-        private int calculateRebound(JiraTransition transition)
+        private int CalculateRebound(JiraTransition transition)
         {
             return 0;
         }
 
-        private JiraTransition getTransitions(string bugID)
+        private JiraTransition GetTransitions(string bugID)
         {
             var client = restHelper.GenerateClient();
             var request = restHelper.PrepareRequest("/rest/api/3/issue/" + bugID + "/transitions");
