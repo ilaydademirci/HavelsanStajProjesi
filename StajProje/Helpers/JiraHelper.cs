@@ -21,7 +21,7 @@ namespace StajProje
         public RestHelper restHelper = new RestHelper();
         public ExcelHelper excelHelper = new ExcelHelper();
         public Dictionary<string, int> reboundDictionary = new Dictionary<string, int>();
-         
+            
         /// <summary>
         /// 
         /// </summary>
@@ -31,28 +31,33 @@ namespace StajProje
             var buglist = GetAllBugs();
 
 
-            foreach (JiraItem bug in buglist)
+            foreach (BugIssue bug in buglist)
             {
-                if (!(bug is JiraItem))
-                    continue;
+                if (!(bug is BugIssue)) 
+                continue;
 
                 var bugTransition = GetTransitions(bug.Key); //TSI-2
                 int reboundCount = CalculateRebound(bugTransition);
                 reboundDictionary.Add(bug.Key, reboundCount);
                 Console.WriteLine("Bug: {0}", bug);
-
+                
             }
             Console.WriteLine("Total Found: " + buglist.Count);
             excelHelper.PrintToExcelFile(reboundDictionary);
         }
 
-        private List<JiraItem> GetAllBugs()
+        private List<BugIssue> GetAllBugs()
         {
-
-            Console.WriteLine(reboundDictionary);
             //Tüm bugların toplanması
+            var client = restHelper.GenerateClient();
+            var request = restHelper.PrepareRequest("/rest/api/3/search?jql=project=TSI&type=Bug");
+
+            IRestResponse response = client.Execute(request);
+            JsonConvert.DeserializeObject<BugIssue>(response.Content);
+            Console.WriteLine(reboundDictionary);
+
             return null;
-     
+           
         }
 
          
