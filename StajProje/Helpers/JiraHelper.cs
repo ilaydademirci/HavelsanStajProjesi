@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Atlassian;
+using StajProje.Base;
 
 namespace StajProje
 {
@@ -33,8 +34,8 @@ namespace StajProje
 
             foreach (Issue bug in buglist)
             {
-                var bugTransition = GetTransitions(bug.key); //TSI-2
-                int reboundCount = CalculateRebound(bugTransition);
+                var history = GetHistory(bug.key); //TSI-2
+                int reboundCount = CalculateRebound(history);
                 reboundDictionary.Add(bug.key, reboundCount);
                 Console.WriteLine("Bug: {0}", bug); 
             }
@@ -63,18 +64,21 @@ namespace StajProje
         /// </summary>
         /// <param name="transition"></param>
         /// <returns></returns>
-        private int CalculateRebound(JiraTransition transition)
+        private int CalculateRebound(JiraChangeLog history)
         {
+            //history.issues[0].changelog içinde loop 
+            //item[1] içindeki fromString Done olup toString InProgress olanları
+
             return 0;
         }
 
-        private JiraTransition GetTransitions(string bugID)
+        private JiraChangeLog GetHistory(string bugID)
         {
             var client = restHelper.GenerateClient();
-            var request = restHelper.PrepareRequest("/rest/api/3/issue/" + bugID + "/transitions");
+            var request = restHelper.PrepareRequest("/rest/api/2/search?jql=key=" + bugID + "&expand=changelog");
 
             IRestResponse response = client.Execute(request);
-            return JsonConvert.DeserializeObject<JiraTransition>(response.Content);
+            return JsonConvert.DeserializeObject<JiraChangeLog>(response.Content);
         }
 
 

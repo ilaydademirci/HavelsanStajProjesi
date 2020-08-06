@@ -93,11 +93,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\JiraChangeLog.cs" />
     <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="Helpers\RestHelper.cs" />
     <Compile Include="Helpers\JiraHelper.cs" />
     <Compile Include="Base\JiraItem.cs" />
-    <Compile Include="Base\JiraTransitions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

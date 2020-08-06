@@ -1,14 +1,51 @@
-﻿using StajProje;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StajProje
+namespace StajProje.Base
 {
 
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
+
+    public class Author
+    {
+        public string self { get; set; }
+        public string accountId { get; set; }
+        public string emailAddress { get; set; }
+        public string displayName { get; set; }
+        public bool active { get; set; }
+        public string timeZone { get; set; }
+        public string accountType { get; set; }
+    }
+
+    public class Item
+    {
+        public string field { get; set; }
+        public string fieldtype { get; set; }
+        public string fieldId { get; set; }
+        public string from { get; set; }
+        public string fromString { get; set; }
+        public string to { get; set; }
+        public string toString { get; set; }
+    }
+
+    public class History
+    {
+        public string id { get; set; }
+        public Author author { get; set; }
+        public DateTime created { get; set; }
+        public List<Item> items { get; set; }
+    }
+
+    public class Changelog
+    {
+        public int startAt { get; set; }
+        public int maxResults { get; set; }
+        public int total { get; set; }
+        public List<History> histories { get; set; }
+    }
+
     public class Issuetype
     {
         public string self { get; set; }
@@ -20,6 +57,7 @@ namespace StajProje
         public int avatarId { get; set; }
     }
 
+
     public class Project
     {
         public string self { get; set; }
@@ -27,7 +65,7 @@ namespace StajProje
         public string key { get; set; }
         public string name { get; set; }
         public string projectTypeKey { get; set; }
-        public bool simplified { get; set; } 
+        public bool simplified { get; set; }
     }
 
     public class Watches
@@ -77,31 +115,12 @@ namespace StajProje
         public StatusCategory statusCategory { get; set; }
     }
 
-    public class Content2
-    {
-        public string type { get; set; }
-        public string text { get; set; }
-    }
-
-    public class Content
-    {
-        public string type { get; set; }
-        public List<Content2> content { get; set; }
-    }
-
-    public class Description
-    {
-        public int version { get; set; }
-        public string type { get; set; }
-        public List<Content> content { get; set; }
-    }
-
 
     public class Creator
     {
         public string self { get; set; }
         public string accountId { get; set; }
-        public string emailAddress { get; set; } 
+        public string emailAddress { get; set; }
         public string displayName { get; set; }
         public bool active { get; set; }
         public string timeZone { get; set; }
@@ -113,7 +132,7 @@ namespace StajProje
     {
         public string self { get; set; }
         public string accountId { get; set; }
-        public string emailAddress { get; set; } 
+        public string emailAddress { get; set; }
         public string displayName { get; set; }
         public bool active { get; set; }
         public string timeZone { get; set; }
@@ -150,14 +169,14 @@ namespace StajProje
         public object resolution { get; set; }
         public object resolutiondate { get; set; }
         public int workratio { get; set; }
-        public DateTime? lastViewed { get; set; }
+        public DateTime lastViewed { get; set; }
         public Watches watches { get; set; }
         public DateTime created { get; set; }
         public object customfield_10020 { get; set; }
         public object customfield_10021 { get; set; }
         public object customfield_10022 { get; set; }
-        public Priority priority { get; set; }
         public object customfield_10023 { get; set; }
+        public Priority priority { get; set; }
         public object customfield_10024 { get; set; }
         public object customfield_10025 { get; set; }
         public List<object> labels { get; set; }
@@ -174,23 +193,23 @@ namespace StajProje
         public Status status { get; set; }
         public List<object> components { get; set; }
         public object timeoriginalestimate { get; set; }
-        public Description description { get; set; }
+        public string description { get; set; }
         public object customfield_10010 { get; set; }
         public object customfield_10014 { get; set; }
         public object customfield_10015 { get; set; }
         public object customfield_10005 { get; set; }
         public object customfield_10006 { get; set; }
-        public object customfield_10007 { get; set; }
         public object security { get; set; }
+        public object customfield_10007 { get; set; }
         public object customfield_10008 { get; set; }
-        public object customfield_10009 { get; set; }
         public object aggregatetimeestimate { get; set; }
+        public object customfield_10009 { get; set; }
         public string summary { get; set; }
         public Creator creator { get; set; }
         public List<object> subtasks { get; set; }
         public Reporter reporter { get; set; }
-        public Aggregateprogress aggregateprogress { get; set; }
         public string customfield_10000 { get; set; }
+        public Aggregateprogress aggregateprogress { get; set; }
         public object customfield_10001 { get; set; }
         public object customfield_10002 { get; set; }
         public object customfield_10003 { get; set; }
@@ -199,29 +218,26 @@ namespace StajProje
         public object duedate { get; set; }
         public Progress progress { get; set; }
         public Votes votes { get; set; }
-    } 
-    public class Changelog
-    {
-        public int startAt { get; set; }
-        public int maxResults { get; set; }
-        public int total { get; set; } 
     }
+
     public class Issue
     {
         public string expand { get; set; }
         public string id { get; set; }
         public string self { get; set; }
         public string key { get; set; }
-        public Fields fields { get; set; }
         public Changelog changelog { get; set; }
+        public Fields fields { get; set; }
     }
 
-    public class JiraItem
+    public class JiraChangeLog
     {
         public string expand { get; set; }
         public int startAt { get; set; }
         public int maxResults { get; set; }
         public int total { get; set; }
         public List<Issue> issues { get; set; }
-    } 
+    }
+
+
 }
