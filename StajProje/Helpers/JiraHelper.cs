@@ -34,9 +34,9 @@ namespace StajProje
 
             foreach (Issue bug in buglist)
             {
-                var history = GetHistory(bug.key); //TSI-2
+                var history = GetHistory(bug.Key); //TSI-2
                 int reboundCount = CalculateRebound(history);
-                reboundDictionary.Add(bug.key, reboundCount);
+                reboundDictionary.Add(bug.Key, reboundCount);
                 Console.WriteLine("Bug: {0}", bug); 
             }
             Console.WriteLine("Total Found: " + buglist.Count);
@@ -50,10 +50,11 @@ namespace StajProje
             var request = restHelper.PrepareRequest("/rest/api/3/search?jql=project=TSI&type=Bug");
 
             IRestResponse response = client.Execute(request);
-            var yalandan = JsonConvert.DeserializeObject<JiraItem>(response.Content);
+            var value = JsonConvert.DeserializeObject<JiraItem>(response.Content);
             Console.WriteLine(reboundDictionary);
+            Console.WriteLine(value.Issues[0].Id);
 
-            return yalandan.issues.ToList();
+            return value.Issues.ToList();
 
         }
 
@@ -66,10 +67,30 @@ namespace StajProje
         /// <returns></returns>
         private int CalculateRebound(JiraChangeLog history)
         {
-            //history.issues[0].changelog içinde loop 
-            //item[1] içindeki fromString Done olup toString InProgress olanları
+            int numberofchange=0;
+                                   
+            foreach (StajProje.Base.Issue item in history.Issues)
+            {
+                //history.issues[0].changelog içinde loop 
+                //item[1] içindeki fromString Done olup toString InProgress olanları
 
-            return 0;
+                StajProje.Base.Changelog changelog = item.Changelog;
+                foreach (History h in changelog.Histories)
+                {
+                    foreach(Item item1 in h.Items)
+                    {
+                        if (item1.Field=="status")
+                        {
+                            if (item1.FromString== "Done" && item1.ToString=="In Progress")
+                            {
+                                numberofchange++;
+                                Console.WriteLine("From:Done" +   " To:In Progress");
+                            }
+                        }
+                    }
+                }
+            }
+            return numberofchange;
         }
 
         private JiraChangeLog GetHistory(string bugID)
@@ -80,7 +101,5 @@ namespace StajProje
             IRestResponse response = client.Execute(request);
             return JsonConvert.DeserializeObject<JiraChangeLog>(response.Content);
         }
-
-
     }
 }
