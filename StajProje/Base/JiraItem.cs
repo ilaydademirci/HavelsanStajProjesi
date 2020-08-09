@@ -27,7 +27,7 @@ namespace StajProje
         public string Key { get; set; }
         public string Name { get; set; }
         public string ProjectTypeKey { get; set; }
-        public bool Simplified { get; set; } 
+        public bool Simplified { get; set; }
     }
 
     public class Watches
@@ -101,7 +101,7 @@ namespace StajProje
     {
         public string Self { get; set; }
         public string AccountId { get; set; }
-        public string EmailAddress { get; set; } 
+        public string EmailAddress { get; set; }
         public string DisplayName { get; set; }
         public bool Active { get; set; }
         public string TimeZone { get; set; }
@@ -113,7 +113,7 @@ namespace StajProje
     {
         public string Self { get; set; }
         public string AccountId { get; set; }
-        public string EmailAddress { get; set; } 
+        public string EmailAddress { get; set; }
         public string DisplayName { get; set; }
         public bool Active { get; set; }
         public string TimeZone { get; set; }
@@ -199,12 +199,12 @@ namespace StajProje
         public object Duedate { get; set; }
         public Progress Progress_ { get; set; }
         public Votes Votes_ { get; set; }
-    } 
+    }
     public class Changelog
     {
         public int StartAt { get; set; }
         public int MaxResults { get; set; }
-        public int Total { get; set; } 
+        public int Total { get; set; }
     }
     public class Issue
     {
@@ -223,5 +223,7 @@ namespace StajProje
         public int MaxResults { get; set; }
         public int Total { get; set; }
         public List<Issue> Issues { get; set; }
-    } 
+    }
+
+
 }

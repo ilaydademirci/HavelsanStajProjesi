@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Atlassian;
 using StajProje.Base;
 
+
 namespace StajProje
 {
     /// <summary>
@@ -84,13 +85,13 @@ namespace StajProje
                             if (item1.FromString== "Done" && item1.ToString=="In Progress")
                             {
                                 numberofchange++;
-                                Console.WriteLine("From:Done" +   " To:In Progress");
+                                Console.WriteLine("From:Done" + " To:In Progress");
                             }
                         }
                     }
                 }
             }
-            return numberofchange;
+            return 0;
         }
 
         private JiraChangeLog GetHistory(string bugID)
