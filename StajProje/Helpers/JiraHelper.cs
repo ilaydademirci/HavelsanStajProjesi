@@ -91,7 +91,7 @@ namespace StajProje
                     }
                 }
             }
-            return 0;
+            return numberofchange;
         }
 
         private JiraChangeLog GetHistory(string bugID)

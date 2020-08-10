@@ -169,7 +169,7 @@ namespace StajProje.Base
         public object Resolution { get; set; }
         public object Resolutiondate { get; set; }
         public int Workratio { get; set; }
-        public DateTime LastViewed { get; set; }
+        public DateTime? LastViewed { get; set; }
         public Watches Watches { get; set; }
         public DateTime Created { get; set; }
         public object Customfield_10020 { get; set; }
