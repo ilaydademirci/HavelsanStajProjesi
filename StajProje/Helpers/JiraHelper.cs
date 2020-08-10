@@ -18,16 +18,19 @@ namespace StajProje
     /// <summary>
     /// TODO: CLASS MİMARİ YAPISI DÜZELTİLECEK
     /// </summary>
+
     public class JiraHelper
     {
         public RestHelper restHelper = new RestHelper();
         public ExcelHelper excelHelper = new ExcelHelper();
         public Dictionary<string, int> reboundDictionary = new Dictionary<string, int>();
-
+    
+        //int excelDonguSayi = 0;
         /// <summary>
         /// 
         /// </summary>
         /// 
+
         public void CheckJira()
         {
             var buglist = GetAllBugs();
@@ -37,10 +40,13 @@ namespace StajProje
             {
                 var history = GetHistory(bug.Key); //TSI-2
                 int reboundCount = CalculateRebound(history);
+                
                 reboundDictionary.Add(bug.Key, reboundCount);
-                Console.WriteLine("Bug: {0}", bug); 
+                
+               
+               //Console.WriteLine("Bug: {0}", bug); 
             }
-            Console.WriteLine("Total Found: " + buglist.Count);
+            //Console.WriteLine("Total Found: " + buglist.Count);
             excelHelper.PrintToExcelFile(reboundDictionary);
         }
 
@@ -52,30 +58,28 @@ namespace StajProje
 
             IRestResponse response = client.Execute(request);
             var value = JsonConvert.DeserializeObject<JiraItem>(response.Content);
-            Console.WriteLine(reboundDictionary);
-            Console.WriteLine(value.Issues[0].Id);
+            //Console.WriteLine(value.Issues[0].Id);
 
             return value.Issues.ToList();
-
         }
-
-
 
         /// <summary>
         /// Kaç kere Done durumundan In Progress'e çekilmiş
         /// </summary>
         /// <param name="transition"></param>
         /// <returns></returns>
+       
         private int CalculateRebound(JiraChangeLog history)
         {
-            int numberofchange=0;
-                                   
+
+            int numberofchange = 0;
             foreach (StajProje.Base.Issue item in history.Issues)
             {
                 //history.issues[0].changelog içinde loop 
                 //item[1] içindeki fromString Done olup toString InProgress olanları
-
+               //Console.WriteLine(history.Issues[0].Key);
                 StajProje.Base.Changelog changelog = item.Changelog;
+                numberofchange = 0;
                 foreach (History h in changelog.Histories)
                 {
                     foreach(Item item1 in h.Items)
@@ -86,11 +90,26 @@ namespace StajProje
                             {
                                 numberofchange++;
                                 Console.WriteLine("From:Done" + " To:In Progress");
+
+                                //String not1 = ("From:Done" + " To:In Progress");
+                                //reboundDictionary.Add(not1, excelDonguSayi);
                             }
                         }
+                        
                     }
+                    
                 }
+
+                Console.WriteLine(history.Issues[0].Key+" -> "+ numberofchange);
+                //String not2= history.Issues[0].Key+"-> "+ numberofchange;
+                //reboundDictionary.Add(not2, excelDonguSayi);
+                
+
+
+
+                // Console.WriteLine(numberofchange);
             }
+            Console.WriteLine(reboundDictionary);
             return numberofchange;
         }
 
