@@ -25,7 +25,7 @@ namespace StajProje
         public ExcelHelper excelHelper = new ExcelHelper();
         public Dictionary<string, int> reboundDictionary = new Dictionary<string, int>();
     
-        //int excelDonguSayi = 0;
+       
         /// <summary>
         /// 
         /// </summary>
@@ -44,7 +44,7 @@ namespace StajProje
                 reboundDictionary.Add(bug.Key, reboundCount);
                 
                
-               //Console.WriteLine("Bug: {0}", bug); 
+            //Console.WriteLine("Bug: {0}", bug); 
             }
             //Console.WriteLine("Total Found: " + buglist.Count);
             excelHelper.PrintToExcelFile(reboundDictionary);
@@ -90,9 +90,6 @@ namespace StajProje
                             {
                                 numberofchange++;
                                 Console.WriteLine("From:Done" + " To:In Progress");
-
-                                //String not1 = ("From:Done" + " To:In Progress");
-                                //reboundDictionary.Add(not1, excelDonguSayi);
                             }
                         }
                         
@@ -101,11 +98,6 @@ namespace StajProje
                 }
 
                 Console.WriteLine(history.Issues[0].Key+" -> "+ numberofchange);
-                //String not2= history.Issues[0].Key+"-> "+ numberofchange;
-                //reboundDictionary.Add(not2, excelDonguSayi);
-                
-
-
 
                 // Console.WriteLine(numberofchange);
             }
