@@ -93,8 +93,7 @@ namespace StajProje
                 if (numberofchange > 0)
                 { 
                     Console.WriteLine(history.Issues[0].Changelog.Histories[0].Items[1] + " -> " + numberofchange);
-                }
-                Console.ReadLine();
+                } 
             }
             Console.WriteLine(reboundDictionary);
             Console.WriteLine("Number of Changed Status: " + numberofchange);
