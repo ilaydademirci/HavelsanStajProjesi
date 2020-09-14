@@ -34,7 +34,7 @@ namespace StajProje
         public void CheckJira()
         {
             var buglist = GetAllBugs();
-
+            
 
             foreach (Issue bug in buglist)
             {
@@ -42,15 +42,12 @@ namespace StajProje
                 int reboundCount = CalculateRebound(history);
                 
                 reboundDictionary.Add(bug.Key, reboundCount);
-                
-               
-            //Console.WriteLine("Bug: {0}", bug); 
             }
-            //Console.WriteLine("Total Found: " + buglist.Count);
             excelHelper.PrintToExcelFile(reboundDictionary);
         }
+       
 
-        private List<Issue> GetAllBugs()
+    private List<Issue> GetAllBugs()
         {
             //Tüm bugların toplanması
             var client = restHelper.GenerateClient();
@@ -58,7 +55,6 @@ namespace StajProje
 
             IRestResponse response = client.Execute(request);
             var value = JsonConvert.DeserializeObject<JiraItem>(response.Content);
-            //Console.WriteLine(value.Issues[0].Id);
 
             return value.Issues.ToList();
         }
@@ -77,7 +73,7 @@ namespace StajProje
             {
                 //history.issues[0].changelog içinde loop 
                 //item[1] içindeki fromString Done olup toString InProgress olanları
-               //Console.WriteLine(history.Issues[0].Key);
+               Console.WriteLine(history.Issues[0].Key);
                 StajProje.Base.Changelog changelog = item.Changelog;
                 numberofchange = 0;
                 foreach (History h in changelog.Histories)
@@ -92,18 +88,20 @@ namespace StajProje
                                 Console.WriteLine("From:Done" + " To:In Progress");
                             }
                         }
-                        
                     }
-                    
                 }
-
-                Console.WriteLine(history.Issues[0].Key+" -> "+ numberofchange);
-
-                // Console.WriteLine(numberofchange);
+                if (numberofchange > 0)
+                { 
+                    Console.WriteLine(history.Issues[0].Changelog.Histories[0].Items[1] + " -> " + numberofchange);
+                }
+                Console.ReadLine();
             }
             Console.WriteLine(reboundDictionary);
+            Console.WriteLine("Number of Changed Status: " + numberofchange);
+            
             return numberofchange;
         }
+        
 
         private JiraChangeLog GetHistory(string bugID)
         {
@@ -115,3 +113,4 @@ namespace StajProje
         }
     }
 }
+

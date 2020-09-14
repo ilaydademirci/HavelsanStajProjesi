@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace StajProje
 {
-
-    // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
+   
     public class Issuetype
     {
         public string Self { get; set; }
