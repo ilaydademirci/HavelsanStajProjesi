@@ -22,7 +22,7 @@ namespace StajProje
     public class JiraHelper
     {
         public RestHelper restHelper = new RestHelper();
-        public ExcelHelper excelHelper = new ExcelHelper();
+        private ExcelHelper excelHelper = new ExcelHelper();
         public Dictionary<string, int> reboundDictionary = new Dictionary<string, int>();
     
        

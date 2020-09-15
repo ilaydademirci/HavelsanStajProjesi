@@ -107,12 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\JiraChangeLog.cs" />
-    <Compile Include="myExcelApp\ExcelHelper.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="myExcelApp\ExcelHelper.Designer.cs">
-      <DependentUpon>ExcelHelper.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Helpers\ExcelHelper.cs" />
     <Compile Include="Helpers\RestHelper.cs" />
     <Compile Include="Helpers\JiraHelper.cs" />
     <Compile Include="Base\JiraItem.cs" />
@@ -130,12 +125,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="reboundDictionary\" />
-    <Folder Include="System\Drawing\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="myExcelApp\ExcelHelper.resx">
-      <DependentUpon>ExcelHelper.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
