@@ -41,8 +41,8 @@ namespace StajProje
 
                 //Biçim A1: A3 kalın, dikey hizalama = Merkez
 
-                WS.get_Range("A1", "A3").Font.Bold = true;
-                WS.get_Range("A1", "A3").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                WS.get_Range("A1", "A2").Font.Bold = true;
+                WS.get_Range("A1", "A2").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
 
                 //B1: AA1'i bir dizi değerle doldurma.
 
@@ -53,8 +53,8 @@ namespace StajProje
 
                 range = WS.get_Range("B2", "AA2").get_Resize(1, reboundDictionary.Values.Count);
                 range.Value2 = vls2;
-               
-                //AutoFit columns A:D.
+
+                //Sütunları Otomatik Sığdırma  A:C.
                 range = WS.get_Range("A2", "C29");
                 range.EntireColumn.AutoFit();
 
@@ -63,9 +63,7 @@ namespace StajProje
                 WB.SaveAs(@"‪‪C:\Users\ilayd\Desktop\StajProje.xlsx", Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
                     true, true, Excel.XlSaveAsAccessMode.xlNoChange,
                     Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-               
 
-                //...
             }
             catch
             {
